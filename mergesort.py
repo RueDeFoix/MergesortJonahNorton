@@ -29,7 +29,8 @@ def merge_count(left, right):
             i += 1
         else:
             result.append(right[j])
-            pass  # your code goes here: count inversions and advance j
+            inversions += len(left) - i
+            j += 1
 
     result.extend(left[i:])
     result.extend(right[j:])
@@ -58,7 +59,11 @@ def sort_count(lst):
 
     # Recursive case: count inversions in each half, then count
     # cross-inversions during merge
-    pass  # your code goes here
+    left, left_inversions = sort_count(lst[:mid])
+    right, right_inversions = sort_count(lst[mid:])
+    merged, split_inversions = merge_count(left, right)
+
+    return merged, left_inversions + right_inversions + split_inversions
 
 
 def main():
